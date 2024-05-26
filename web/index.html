@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Site</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Knowledge Site!</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>About Podman and Containers</h2>
+        <p>This site is powered by Podman and Podman Compose.</p>
+
+        <h3>What is a Container?</h3>
+        <p>Containers are a lightweight form of virtualization that allow you to run multiple isolated applications on a single host system. Each container includes everything needed to run an application: the code, runtime, libraries, and environment variables. This ensures that the application runs consistently regardless of the deployment environment.</p>
+
+        <ul>
+            <li><strong>Lightweight and Fast</strong>: Containers share the same operating system kernel, making them lightweight and able to start quickly.</li>
+            <li><strong>Portable</strong>: Containers can easily be moved between different environments without requiring code changes.</li>
+            <li><strong>Isolated</strong>: Each container runs independently, ensuring that one container's operation does not affect another.</li>
+        </ul>
+
+        <h3>What is Podman?</h3>
+        <p>Podman is a daemonless, open-source tool designed for managing OCI (Open Container Initiative) containers and container images. It provides a command line interface (CLI) that is similar to Docker, making it easy for users to switch from Docker to Podman.</p>
+
+        <ul>
+            <li><strong>Daemonless</strong>: Podman does not require a running daemon, which improves security and reduces resource consumption.</li>
+            <li><strong>Rootless Containers</strong>: Podman allows running containers as a non-root user, enhancing security.</li>
+            <li><strong>Compatibility</strong>: Podman is compatible with Docker images and can use the same image registries.</li>
+        </ul>
+
+        <h3>Basic Podman Commands</h3>
+        <p>Here are some basic Podman commands to get you started:</p>
+        <ul>
+            <li><code>podman pull &lt;image&gt;</code>: Pull an image from a registry.</li>
+            <li><code>podman run &lt;image&gt;</code>: Run a container from an image.</li>
+            <li><code>podman ps</code>: List running containers.</li>
+            <li><code>podman stop &lt;container_id&gt;</code>: Stop a running container.</li>
+            <li><code>podman rm &lt;container_id&gt;</code>: Remove a container.</li>
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 Knowledge Site. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+

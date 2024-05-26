@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    build: ./web
+    ports:
+      - "8080:80"
+    restart: always
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: example      # Mật khẩu cho tài khoản root
+      MYSQL_DATABASE: knowledge         # Tên cơ sở dữ liệu sẽ được tạo
+      MYSQL_USER: user                  # Tên người dùng mới
+      MYSQL_PASSWORD: password          # Mật khẩu cho người dùng mới
+    volumes:
+      - db_data:/var/lib/mysql          # Dữ liệu sẽ được lưu trữ trên volume
+    restart: always
+
+volumes:
+  db_data:
