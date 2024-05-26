@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: gcr.io/leafy-habitat-421416/my-knowledge-site-web:latest
+        image: gcr.io/leafy-habitat-421416/my-knowledge-web:latest
         ports:
         - containerPort: 80
