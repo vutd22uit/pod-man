@@ -29,15 +29,11 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/my-knowledge-site-web:latest ./web
+        podman build --platform linux/amd64 -t gcr.io/${{ secrets.GCP_PROJECT }}/my-knowledge-site-web:latest ./web
 
     - name: Push Docker image to GCR
       run: |
-        docker push gcr.io/${{ secrets.GCP_PROJECT }}/my-knowledge-site-web:latest
-
-    - name: Install gke-gcloud-auth-plugin
-      run: |
-        gcloud components install gke-gcloud-auth-plugin
+        podman push gcr.io/${{ secrets.GCP_PROJECT }}/my-knowledge-site-web:latest
 
     - name: Deploy to GKE
       env:
@@ -46,4 +42,5 @@ jobs:
         GKE_ZONE: ${{ secrets.GKE_ZONE }}
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $PROJECT_ID
-        kubectl apply -k ./k8s
+        kubectl apply -f k8s/web-deployment.yml
+        kubectl apply -f k8s/web-service.yml
