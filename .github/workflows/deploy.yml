@@ -1,3 +1,26 @@
+Skip to content
+Navigation Menu
+vutd22uit
+/
+pod-man
+
+Type / to search
+
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Deploy to GKE
+Update web-deployment.yml #6
+Jobs
+Run details
+Workflow file for this run
+.github/workflows/deploy.yml at 0854dc8
 name: Deploy to GKE
 
 on:
@@ -26,15 +49,15 @@ jobs:
         echo "${GCP_SA_KEY_BASE64}" | base64 --decode > "${HOME}/gcp-key.json"
         gcloud auth activate-service-account --key-file="${HOME}/gcp-key.json"
         gcloud auth configure-docker gcr.io
-
     - name: Build Docker image
       run: |
-        podman build --platform linux/amd64 -t gcr.io/${{ secrets.GCP_PROJECT }}/my-knowledge-site-web:latest ./web
-
+        docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/my-knowledge-site-web:latest ./web
     - name: Push Docker image to GCR
       run: |
-        podman push gcr.io/${{ secrets.GCP_PROJECT }}/my-knowledge-site-web:latest
-
+        docker push gcr.io/${{ secrets.GCP_PROJECT }}/my-knowledge-site-web:latest
+    - name: Install gke-gcloud-auth-plugin
+      run: |
+        gcloud components install gke-gcloud-auth-plugin
     - name: Deploy to GKE
       env:
         PROJECT_ID: ${{ secrets.GCP_PROJECT }}
@@ -42,5 +65,5 @@ jobs:
         GKE_ZONE: ${{ secrets.GKE_ZONE }}
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $PROJECT_ID
-        kubectl apply -f k8s/web-deployment.yml
-        kubectl apply -f k8s/web-service.yml
+        kubectl apply -k ./k8s
+        
