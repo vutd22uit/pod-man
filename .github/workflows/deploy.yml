@@ -1,26 +1,4 @@
-Skip to content
-Navigation Menu
-vutd22uit
-/
-pod-man
 
-Type / to search
-
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-Deploy to GKE
-Update web-deployment.yml #6
-Jobs
-Run details
-Workflow file for this run
-.github/workflows/deploy.yml at 0854dc8
 name: Deploy to GKE
 
 on:
