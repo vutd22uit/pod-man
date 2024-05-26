@@ -16,12 +16,16 @@ jobs:
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        service_account_key: ${{ secrets.GCP_SA_KEY_BASE64 }}
         project_id: ${{ secrets.GCP_PROJECT }}
 
-    - name: Authenticate Docker with GCR
+    - name: Authenticate to Google Cloud Registry
+      env:
+        GCP_SA_KEY_BASE64: ${{ secrets.GCP_SA_KEY_BASE64 }}
       run: |
-        echo "${{ secrets.GCP_SA_KEY }}" | docker login -u _json_key --password-stdin https://gcr.io
+        echo "${GCP_SA_KEY_BASE64}" | base64 --decode > "${HOME}/gcp-key.json"
+        gcloud auth activate-service-account --key-file="${HOME}/gcp-key.json"
+        gcloud auth configure-docker gcr.io
 
     - name: Build Docker image
       run: |
@@ -30,10 +34,6 @@ jobs:
     - name: Push Docker image to GCR
       run: |
         docker push gcr.io/${{ secrets.GCP_PROJECT }}/my-knowledge-site-web:latest
-
-    - name: Set up Kustomize
-      run: |
-        sudo apt-get install -y kustomize
 
     - name: Deploy to GKE
       env:
